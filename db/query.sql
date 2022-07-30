@@ -1,0 +1,2 @@
+-- this connects the role title on the left to the department name on the right
+SELECT role.title AS title, department.name AS department_name FROM department LEFT JOIN role on role.department_id = department.id;
