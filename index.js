@@ -25,6 +25,16 @@ const db = mysql.createConnection(
 
 // for SELECT IFNULL(X,Y): if x ISN'T null, return x; if x IS null, return y
 
+// on start, give menu
+// view all depts (show ids and names)
+// view all roles (show id , title, dept, salary)
+// view all employees (show id, first, last, role, dept, salary, manager)
+// add a department (prompt for name)
+// add a role (prompt for name, salary, dept)
+// add an employee (prompt for first, last, role, manager)
+// update employee role (prompt for employee, enter new role)
+
+
 // default error response
 app.use((req, res) => {
   res.status(404).end();
