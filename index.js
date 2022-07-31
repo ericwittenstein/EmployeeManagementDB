@@ -21,11 +21,6 @@ const db = mysql.createConnection(
 
 // for SELECT IFNULL(X,Y): if x ISN'T null, return x; if x IS null, return y
 
-// TODOx: on start, give menu
-// TODOx: view all depts (show ids and names)
-// TODOx: view all roles (show id , title, dept, salary)
-// TODOx: view all employees (show id, first, last, role, dept, salary, manager)
-// TODO: add a department (prompt for name)
 // TODO: add a role (prompt for name, salary, dept)
 // TODO: add an employee (prompt for first, last, role, manager)
 // TODO: update employee role (prompt for employee, enter new role)
@@ -112,6 +107,91 @@ function viewAllEmpl() {
 			menu();
 		}
 	);
+}
+
+// function to add a new department
+function addNewDept() {
+	console.log("\n");
+	inquirer
+		.prompt([
+			{
+				type: "input",
+				name: "addDept",
+				message:
+					"What is the name of the department you would like to add? ",
+				default: "New Department",
+			},
+		])
+		.then((newDeptToAdd) => {
+			const newDept = newDeptToAdd.addDept;
+
+			db.query(
+				`INSERT INTO department(name) VALUES (?)`,
+				newDept,
+				function deptAdded() {
+					console.log(`${newDept} added to department list \n`);
+					menu();
+				}
+			);
+		});
+}
+
+// this returns an array of the departments, at least in theory
+let getDepts = new Promise((resolve, reject) => {
+    let numOfDepts = db.query(`SELECT COUNT(*) FROM department`);
+    let departmentsArray = {name: 0, value: ""};
+    for (var i = 0; i < numOfDepts; i++) {
+    departmentsArray[i] = {
+        name: `${db.query('SELECT name FROM department')}`,
+        value: `${db.query('SELECT id FROM department')}`,
+    }
+    // departmentsArray[0] = await db.query(queryText);
+    console.log(departmentsArray);
+    resolve(departmentsArray);
+    }
+});
+
+// function to add a new role
+function addNewRole() {
+	console.log("\n");
+	inquirer
+		.prompt([
+			{
+				type: "input",
+				name: "addRoleName",
+				message:
+					"What is the name of the role you would like to add? ",
+				default: "New Role",
+			},
+            {
+                type: "input",
+				name: "addRoleSalary",
+				message:
+					"What is the salary for this new role? $",
+				default: "100000",
+            },
+            {
+                type: "list",
+				name: "addRoleDept",
+				message:
+					"What department would you like this role to be added to? ",
+				choices: getDepts,
+            }
+		])
+		.then((newRoleToAdd) => {
+			const newRoleName = newRoleToAdd.addRoleName;
+            const newRoleSalary = newRoleToAdd.addRoleSalary;
+            const newRoleDept = newRoleToAdd.addRoleDept;
+
+			db.query(
+				`INSERT INTO role(title, salary, department_id) VALUES (?)`,
+				(newRoleName, newRoleSalary, newRoleDept),
+				function roleAdded() {
+					console.log(`${newRole} added to roles list \n`);
+					menu();
+				}
+			);
+		});
 }
 
 // call for the app to run
