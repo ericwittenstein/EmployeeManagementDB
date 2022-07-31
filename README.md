@@ -3,7 +3,11 @@
 
 ## Description
 
-Using Node.js, Inquirer, and MySQL, this application will run from the command line and allow a business owner to manage their company structure and employees through a database
+Using Node.js, Inquirer, and MySQL, this application will run from the command line and allow a business owner to manage their company structure and employees through a database.
+
+The recording of this application can be found here:
+
+https://drive.google.com/file/d/1ceBwubcDuUG8KMuK-Hf2yO0wQwgg5Pn6/view
 
 ## Table of Contents 
 
@@ -29,7 +33,29 @@ npm i
 
 ## Usage
 
-Initiate the application from the command line with the following code:
+From the root of the project, run:
+
+```
+mysql -u root -p
+```
+
+and when propted for the password enter: 
+
+```
+bulldog
+```
+which will enter the MySQL interface. To ensure the database exists prior to starting up the project, run:
+
+```
+SOURCE db/schema.sql;
+SOURCE db/seeds.sql;
+```
+which will create and populate the database necessary for this project. Type
+
+```
+exit
+```
+to exit the MySQL interface and return the user to the command line. Initiate the application with the following code:
 
 ```
 node index.js
@@ -45,7 +71,7 @@ https://github.com/ericwittenstein/EmployeeManagementDB
 
 ## Project Demo
 
-    **_ THIS IS A PLACEHOLDER FOR AN IMAGE OR SCREEN RECORDING OF THE PROJECT _**
+https://drive.google.com/file/d/1ceBwubcDuUG8KMuK-Hf2yO0wQwgg5Pn6/view
 
 ## Contributing
 
